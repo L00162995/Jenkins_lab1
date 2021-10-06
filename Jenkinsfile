@@ -30,7 +30,6 @@ pipeline {
           junit 'target /surefire-reports/*.xml'
         }
       }
-    }
     stage('Deploy ') {
 
       parallel {
@@ -71,6 +70,5 @@ pipeline {
         archiveArtifacts(allowEmptyArchive: true, artifacts: 'target/*.jar')
       }
     }
-
   }
 }
