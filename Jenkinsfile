@@ -19,7 +19,12 @@ pipeline {
       }
     }
 
-    stage('Maven Test') { /// jUNIT TEST WILL ONLY EXCUTE IF THE CURRENT BRANCH IS DEV
+    stage('Maven Test') { 
+          when {
+            expression {
+              BRANCH_NAME == 'dev'
+            }
+          }
 
       steps {
         sh 'mvn test'
@@ -29,11 +34,7 @@ pipeline {
 
       parallel {
         stage('Deploy Dev') {
-///          when {
-///            expression {
-///              BRANCH_NAME == 'dev'
-///            }
-///          }
+          
           steps {
             echo 'Deploying in DEV with test'
           }
@@ -54,7 +55,7 @@ pipeline {
       }
     }
 
-    stage('Test') {
+    stage('Test') { ///  TEST WILL ONLY EXCUTE IF THE CURRENT BRANCH IS DEV
       steps {
        echo 'test successful'
       }
