@@ -24,6 +24,8 @@ pipeline {
 
       steps {
         sh 'mvn test'
+      }
+      steps {
         sh 'junit 'target /surefire-reports/*.xml''
       }
     }
