@@ -72,12 +72,12 @@ pipeline {
 
     stage('Archive and report') {
       parallel {
-        stage (archive the Artifacts) {
+        stage ('archive the Artifacts') {
           steps {
           archiveArtifacts(allowEmptyArchive: true, artifacts: 'target/*.jar')
           }
         }
-        stage(send an email){
+        stage('send an email'){
           emailext body: "Jenkins_lab1 Pipeline for ${BRANCH_NAME} was triggered"
             subject: "Jenkins_lab1 Pipeline for ${BRANCH_NAME}"
             to: 'L00162995@student.lyit.ie'
