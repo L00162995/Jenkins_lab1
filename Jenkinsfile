@@ -33,7 +33,10 @@ pipeline {
     stage('Deploy ') {
 
       parallel {
-        stage('Deploy Dev') {
+        stage('Deploy in Dev') {
+          when {
+            branch 'dev'
+          }
           
           steps {
             echo 'Deploying in DEV with test'
