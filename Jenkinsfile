@@ -19,14 +19,10 @@ pipeline {
       }
     }
 
-    stage('JUnit Test') { /// jUNIT TEST WILL ONLY EXCUTE IF THE CURRENT BRANCH IS DEV
-
+    stage('Maven Test') { /// jUNIT TEST WILL ONLY EXCUTE IF THE CURRENT BRANCH IS DEV
 
       steps {
         sh 'mvn test'
-      }
-      steps {
-        sh 'junit 'target /surefire-reports/*.xml''
       }
     }
     stage('Deploy ') {
