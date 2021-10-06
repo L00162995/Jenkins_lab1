@@ -35,11 +35,11 @@ pipeline {
 
       parallel {
         stage('Deploy Dev') {
-          when {
-            expression {
-              BRANCH_NAME == 'dev'
-            }
-          }
+///          when {
+///            expression {
+///              BRANCH_NAME == 'dev'
+///            }
+///          }
           steps {
             echo 'Deploying in DEV with test'
           }
