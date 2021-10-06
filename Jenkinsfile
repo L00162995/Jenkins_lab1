@@ -20,18 +20,26 @@ pipeline {
     }
 
     stage('JUnit Test') { /// jUNIT TEST WILL ONLY EXCUTE IF THE CURRENT BRANCH IS DEV
-      when { 
-        expression {
-          BRANCH_NAME == 'dev'
-        }
+
       }
       steps {
-        echo 'test successfuly done'
+        sh 'mvn test'
+      }
+      post {
+        always {
+          junit 'target /surefire-reports/*.xml'
+        }
       }
     }
     stage('Deploy ') {
+
       parallel {
         stage('Deploy Dev') {
+          when {
+            expression {
+              BRANCH_NAME == 'dev'
+            }
+          }
           steps {
             echo 'Deploying in DEV with test'
           }
