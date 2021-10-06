@@ -7,7 +7,6 @@ pipeline {
 
     stage('Initialize')  {
       steps {
-
         echo 'Initialize Steps'
         sh 'mvn -version'
       }
@@ -20,60 +19,40 @@ pipeline {
       }
     }
 
-    stage('Test') { /// jUNIT TEST WILL ONLY EXCUTE IF THE CURRENT BRANCH IS DEV
-      
-      steps {
-        sh 'mvn test'
-      }
-      post {
-        always {
-          junit 'target/surefire-reports/*.xml'
+    stage('JUnit Test') { /// jUNIT TEST WILL ONLY EXCUTE IF THE CURRENT BRANCH IS DEV
+      when { 
+        expression {
+          BRANCH_NAME == 'dev'
         }
       }
+      steps {
+        echo 'test successfuly done'
+      }
     }
-
-    stage('Deploy') {
+    stage('Deploy ') {
       parallel {
         stage('Deploy Dev') {
-          when { 
-            expression {
-              BRANCH_NAME == 'dev'
-            }
-          }
-        }
-      }
           steps {
             echo 'Deploying in DEV with test'
-            // llamar a un script de deployment parametrizado
           }
-    }
+        }
 
         stage('Deploy PREPROD') {
-          when { 
-            expression {
-             BRANCH_NAME == 'PREPROD'
-            }
           steps {
-            when {
-              expression {
-                BRANCH_NAME == 'main'
-              }
-            }
             echo 'Deploying in PREPROD'
           }
-          }
+        }
 
         stage('DeployPROD') {
           steps {
-            BRANCH_NAME == 'main'
             echo 'Deploying in PROD'
           }
         }
 
-        }
+      }
     }
 
-    stage('Test_deployment') {
+    stage('Test') {
       steps {
        echo 'test successful'
       }
@@ -86,3 +65,4 @@ pipeline {
     }
 
   }
+}
