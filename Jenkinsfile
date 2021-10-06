@@ -70,10 +70,21 @@ pipeline {
       }
     }
 
-    stage('Archive') {
-      steps {
-        archiveArtifacts(allowEmptyArchive: true, artifacts: 'target/*.jar')
+    stage('Archive and report') {
+      parallel {
+        stage {
+          steps {
+          archiveArtifacts(allowEmptyArchive: true, artifacts: 'target/*.jar')
+          }
+        }
+        stage{
+          emailext body: "Jenkins_lab1 Pipeline for ${BRANCH_NAME} was triggered"
+            subject: "Jenkins_lab1 Pipeline for ${BRANCH_NAME}"
+            to: 'L00162995@student.lyit.ie'
+        }
+        
       }
+      
     }
   }
 }
