@@ -44,12 +44,18 @@ pipeline {
         }
 
         stage('Deploy PREPROD') {
+          when {
+            branch 'PREPROD'
+          }          
           steps {
             echo 'Deploying in PREPROD'
           }
         }
 
         stage('DeployPROD') {
+          when {
+            branch 'main'
+          }
           steps {
             echo 'Deploying in PROD'
           }
