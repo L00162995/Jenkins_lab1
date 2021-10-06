@@ -64,7 +64,7 @@ pipeline {
       }
     }
 
-    stage('Test') { ///  TEST WILL ONLY EXCUTE IF THE CURRENT BRANCH IS DEV
+    stage('Test') { 
       steps {
        echo 'test successful'
       }
