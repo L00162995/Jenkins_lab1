@@ -7,8 +7,9 @@ pipeline {
 
     stage('Initialize')  {
       steps {
+
         echo 'Initialize Steps'
-       sh 'mvn -version'
+        sh 'mvn -version'
       }
     }
     stage('Build') {
@@ -30,7 +31,8 @@ pipeline {
         }
       }
     }
-    stage('Deploy ') {
+
+    stage('Deploy') {
       parallel {
         stage('Deploy Dev') {
           when { 
@@ -50,17 +52,16 @@ pipeline {
           when { 
             expression {
              BRANCH_NAME == 'PREPROD'
-          }
+            }
           steps {
             when {
               expression {
                 BRANCH_NAME == 'main'
               }
             }
-            
             echo 'Deploying in PREPROD'
           }
-        }
+          }
 
         stage('DeployPROD') {
           steps {
@@ -69,7 +70,7 @@ pipeline {
           }
         }
 
-      }
+        }
     }
 
     stage('Test_deployment') {
