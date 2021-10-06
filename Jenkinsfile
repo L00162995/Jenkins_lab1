@@ -78,9 +78,10 @@ pipeline {
           }
         }
         stage('send an email'){
-          emailext body: "Jenkins_lab1 Pipeline for ${env.BRANCH_NAME} was triggered",
-            subject: "Jenkins_lab1 Pipeline for ${BRANCH_NAME} with ${env.BUILD_STATUS}",
-            to: 'L00162995@student.lyit.ie'
+          echo 'sending email' 
+///          emailext body: "Jenkins_lab1 Pipeline for ${env.BRANCH_NAME} was triggered",
+///            subject: "Jenkins_lab1 Pipeline for ${BRANCH_NAME} with ${env.BUILD_STATUS}",
+///            to: 'L00162995@student.lyit.ie'
         }
         
       }
